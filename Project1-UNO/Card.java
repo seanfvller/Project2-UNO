@@ -1,5 +1,5 @@
 /**
- * @author Sean Fuller
+ * @author Sean Fuller, Tristen Tran
  *
  */
 import java.util.Random;
@@ -65,10 +65,6 @@ public class Card {
 		
 		return cardTypeString;
 	}
-	
-	public void main(String[] args) {
-		createCard();
-		System.out.println(this.cardColorToString());
-		System.out.println(this.cardTypeToString());
+	public static void main(String[] args) {
 	}
 }
