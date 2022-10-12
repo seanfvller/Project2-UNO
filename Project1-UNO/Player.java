@@ -10,19 +10,27 @@ import java.util.*;
 
 public class Player
 {
-	//:)))
-	//I hope this project fails
+	//Fields
 	String playerName;
-	int playerNumber = 0; // number of players in game min is 2
+	int playerNum; // number of players in game min is 2
 	int numberOfCards = 0; // total number of cards the player has
-	Card playerDeck[]; //array of cards object player has
-	Player[] players = new Player[10];
-	
+	Card playerDeck[\; //array of cards object each player has
+	ArrayList<String> players = new ArrayList<String>();
 	Player nextPlayer;
 	Player previousPlayer;
 	
 	Scanner scnr = new Scanner (System.in);
 	
+	
+	//Constructor
+	
+	Player(int playerNumber){
+		playerName = " ";
+		playerNum = playerNumber;
+		numberOfCards = 0;
+		getPlayerName();
+		
+	}
 	public Player(int playerNumber) 
 	{
 		
@@ -34,27 +42,23 @@ public class Player
 	
 	//Get Player name
 	public void getPlayerName(){
-		Scanner players = new Scanner (System.in);
-		System.out.print("Enter name of player: ");
+		System.out.print("Enter name of player " + (playerNum++) + ": ");
+		playerName = scnr.next();
+		System.out.println();
 	}
-	
-	public void getNumberOfPlayer() {
-		Scanner playerNumber = new Scanner (System.in);
-		System.out.println("Enter number of players: ");
-		
-		System.out.println("Enter Name for each Player");
-		System.out.println("Enter Name for Player "+ playerNumber++ + ": ");
-		
-		
-		
-	}
-	
+
+	//Add a card to players deck
 	public void drawCard() { 
 		
+		
 	}
+	
+	//remove a card from players deck
 	public void removeCard() {
 		
 	}
+	
+	//displays the players hand to player at every turn
 	public void displayPlayerDeck() {
 		
 	}
@@ -65,7 +69,3 @@ public class Player
 }
 
 
-
-//}
-//test tristen
-//test push sean 2022-10-05 13:59
