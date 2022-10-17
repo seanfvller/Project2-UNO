@@ -7,32 +7,31 @@
  *
  */
 import java.util.*;
+import java.util.InputMismatchException;
 
-public class Player
+public class Player 
 {
 	//Fields
 	String playerName;
-	int playerNum; // number of players in game min is 2
+	int playerNum = 0; // number of players in game min is 2
 	int numberOfCards = 0; // total number of cards the player has
-	Card playerDeck[\; //array of cards object each player has
-	ArrayList<String> players = new ArrayList<String>();
-	Player nextPlayer;
-	Player previousPlayer;
+	ArrayList<Card> playerDeck = new ArrayList<Card>() ; //array of cards object each player has
+	ArrayList<Player> players; //array of players
+//	int direction;
+//	Player  nextPlayer;
+//	Player  previousPlayer;
 	
 	Scanner scnr = new Scanner (System.in);
 	
 	
 	//Constructor
 	
-	Player(int playerNumber){
-		playerName = " ";
+	Player (int playerNumber)
+	{
+		playerName = null;
 		playerNum = playerNumber;
 		numberOfCards = 0;
 		getPlayerName();
-		
-	}
-	public Player(int playerNumber) 
-	{
 		
 	}
 	
@@ -42,30 +41,64 @@ public class Player
 	
 	//Get Player name
 	public void getPlayerName(){
-		System.out.print("Enter name of player " + (playerNum++) + ": ");
-		playerName = scnr.next();
-		System.out.println();
+		
+		try 
+		{
+			System.out.println("Enter the number of Players playing Uno");
+			playerNum = scnr.nextInt();
+	
+		}
+		catch(InputMismatchException e) 
+		{
+			System.out.println("Please enter a number!");
+			scnr.nextLine();
+			playerNum = scnr.nextInt();
+		}
+		
+			for(int i = 1; i < playerNum + 1; i++) {
+				System.out.print("Enter name of player " + i + ": ");
+				playerName = scnr.next();
+				System.out.println();
+			}
+		
+		
+		scnr.close();
+
+		
+	}
+	
+	public ArrayList<Card> getPlayerHand() {
+		return playerDeck;
+		
 	}
 
 	//Add a card to players deck
-	public void drawCard() { 
+	public void drawCard(Card card) { 
 		
+		//if user inputs Draw, add one card to array list
+		if(scnr.nextLine() == "Draw")
+		{
+			numberOfCards++;
+			playerDeck.add(card);		
+		}
 		
 	}
 	
 	//remove a card from players deck
-	public void removeCard() {
-		
+	public void removeCard(int index) {
+		playerDeck.remove(index); 
 	}
 	
-	//displays the players hand to player at every turn
+//	//displays the players hand to player at every turn
 	public void displayPlayerDeck() {
-		
+		System.out.println(playerName+ "'s cards");
+		for (int i = 0; i < playerDeck.size(); i++) 
+		{
+	        System.out.print(playerDeck.get(i) + " ");
+		}
+
 	}
-	
-	public int getNumberOfCards() {
-		return numberOfCards;
-	}
+
 }
 
 
