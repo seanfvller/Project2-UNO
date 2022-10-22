@@ -15,8 +15,8 @@ public class Player
 	String playerName;
 	int playerNum = 0; // number of players in game min is 2
 	int numberOfCards = 0; // total number of cards the player has
-	ArrayList<Card> playerDeck = new ArrayList<Card>() ; //array of cards object each player has
-	ArrayList<Player> players; //array of players
+	ArrayList<Card> playerDeck;// = new ArrayList<Card>() ; //array of cards object each player has
+//	ArrayList<Player> players; //array of players
 //	int direction;
 //	Player  nextPlayer;
 //	Player  previousPlayer;
@@ -26,51 +26,50 @@ public class Player
 	
 	//Constructor
 	
-	Player (int playerNumber)
+	public Player (String name,int playerNumber)
 	{
 		playerName = null;
 		playerNum = playerNumber;
 		numberOfCards = 0;
-		getPlayerName();
-		
+
 	}
 	
-	public void addPlayers(Scanner sc) {
-		this.players = new ArrayList<Player>();
-	}
+//	public void addPlayers(Scanner sc) {
+//		this.players = new ArrayList<Player>();
+//	}
 	
 	//Get Player name
-	public void getPlayerName(){
-		
-		try 
-		{
-			System.out.println("Enter the number of Players playing Uno");
-			playerNum = scnr.nextInt();
+//	public void getPlayerName(){
+//		
+//		try 
+//		{
+//			System.out.println("Enter the number of Players playing Uno");
+//			playerNum = scnr.nextInt();
+//	
+//		}
+//		catch(InputMismatchException e) 
+//		{
+//			System.out.println("Please enter a number!");
+//			scnr.nextLine();
+//			playerNum = scnr.nextInt();
+//		}
+//		
+//			for(int i = 1; i < playerNum + 1; i++) {
+//				System.out.print("Enter name of player " + i + ": ");
+//				playerName = scnr.next();
+//				System.out.println();
+//			}
+//		
+//		
+//		scnr.close();
+//
+//		
+//	}
 	
-		}
-		catch(InputMismatchException e) 
-		{
-			System.out.println("Please enter a number!");
-			scnr.nextLine();
-			playerNum = scnr.nextInt();
-		}
-		
-			for(int i = 1; i < playerNum + 1; i++) {
-				System.out.print("Enter name of player " + i + ": ");
-				playerName = scnr.next();
-				System.out.println();
-			}
-		
-		
-		scnr.close();
-
-		
-	}
-	
-	public ArrayList<Card> getPlayerHand() {
-		return playerDeck;
-		
-	}
+//	public ArrayList<Card> getPlayerHand() {
+//		return playerDeck;
+//		
+//	}
 
 	//Add a card to players deck
 	public void drawCard(Card card) { 
@@ -79,6 +78,8 @@ public class Player
 		if(scnr.nextLine() == "Draw")
 		{
 			numberOfCards++;
+			//implement create card method
+			//TODO:
 			playerDeck.add(card);		
 		}
 		
@@ -86,6 +87,7 @@ public class Player
 	
 	//remove a card from players deck
 	public void removeCard(int index) {
+		//TODO: remove card from players hand and add it to the discard pile
 		playerDeck.remove(index); 
 	}
 	
