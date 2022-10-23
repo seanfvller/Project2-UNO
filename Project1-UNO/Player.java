@@ -16,31 +16,33 @@ public class Player
 	int playerNum = 0; // number of players in game min is 2
 	int numberOfCards = 0; // total number of cards the player has
 	ArrayList<Card> playerDeck;// = new ArrayList<Card>() ; //array of cards object each player has
-//	ArrayList<Player> players; //array of players
-//	int direction;
-//	Player  nextPlayer;
-//	Player  previousPlayer;
+	Player[] playerList = new Player[10];
+//	
 	
 	Scanner scnr = new Scanner (System.in);
 	
 	
 	//Constructor
 	
-	public Player (String name,int playerNumber)
+	public Player (int playerNumber)
 	{
 		playerName = null;
 		playerNum = playerNumber;
 		numberOfCards = 0;
-
+		getPlayerName();
 	}
 	
 //	public void addPlayers(Scanner sc) {
 //		this.players = new ArrayList<Player>();
 //	}
 	
-	//Get Player name
-//	public void getPlayerName(){
-//		
+//	Get Player name
+	public void getPlayerName(){
+		
+		System.out.print("Enter name of player " + (playerNum +1) + ": ");
+		playerName = scnr.next();
+		System.out.println();
+	}
 //		try 
 //		{
 //			System.out.println("Enter the number of Players playing Uno");
@@ -53,13 +55,8 @@ public class Player
 //			scnr.nextLine();
 //			playerNum = scnr.nextInt();
 //		}
-//		
-//			for(int i = 1; i < playerNum + 1; i++) {
-//				System.out.print("Enter name of player " + i + ": ");
-//				playerName = scnr.next();
-//				System.out.println();
-//			}
-//		
+		
+
 //		
 //		scnr.close();
 //
