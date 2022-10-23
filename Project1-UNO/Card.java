@@ -2,8 +2,7 @@
  * @author Sean Fuller, Tristen Tran
  *
  */
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Card {
 	// Card Variables
@@ -39,7 +38,7 @@ public class Card {
 		Card newCard = new Card();
 		Random random = new Random();
 		cardType = random.nextInt(12);
-		if (cardType >= 11) {
+		if (cardType == 11) {
 			cardColor = 4;
 		}
 		else {
@@ -111,40 +110,39 @@ public class Card {
 		else if (this.cardType == 11) {
 			cardTypeString = "Draw Four";
 		}
-		else if (this.cardType == 12) {
-			cardTypeString = "Wild";
-		}
 		
 		return cardTypeString;
 	}
 	
-	public Card changeWildCard(Card card) {
-		Scanner scnr = new Scanner(System.in);
-		System.out.println("Please enter a color to set the Wild Card to (0: Red, 1: Blue, 3: Yellow, 4: Green):");
-		do {
-		if (scnr.nextInt() == 0) {
-			this.cardColor = 0;
-			System.out.println("The Wild Card's color has been set to Red.");
-		}
-		else if (scnr.nextInt() == 1) {
-			this.cardColor = 1;
-			System.out.println("The Wild Card's color has been set to Blue.");
-		}	
-		else if (scnr.nextInt() == 2) {
-			this.cardColor = 2;
-			System.out.println("The Wild Card's color has been set to Yellow.");
-		}
-		else if (scnr.nextInt() == 3) {
-			this.cardColor = 3;
-			System.out.println("The Wild Card's color has been set to Green.");
-		}
-		else {
-			System.out.print("Invalid input. Please try again.");
-		}
-		} while (this.cardColor < 4);
-		scnr.close();
-		return card;
-	}
+//	public Card changeWildCard(Card card) {
+//		Scanner scnr = new Scanner(System.in);
+//		System.out.println("Please enter a color to set the Wild Card to (0: Red, 1: Blue, 2: Yellow, 3: Green):");
+//		do {
+//		if (scnr.nextInt() == 0) {
+//			this.cardColor = 0;
+//			System.out.println("The Wild Card's color has been set to Red.");
+//			}
+//		else if (scnr.nextInt() == 1) {
+//			this.cardColor = 1;
+//			System.out.println("The Wild Card's color has been set to Blue.");
+//			}	
+//		else if (scnr.nextInt() == 2) {
+//			this.cardColor = 2;
+//			System.out.println("The Wild Card's color has been set to Yellow.");
+//			}
+//		else if (scnr.nextInt() == 3) {
+//			this.cardColor = 3;
+//			System.out.println("The Wild Card's color has been set to Green.");
+//			}
+//		} 
+//		catch (InputMismatchException e) {
+//			System.out.println("Invalid Input: To select a color, you must input the integer that corresponds to it.");
+//			scnr.nextLine();
+//			}
+//		
+//		scnr.close();
+//		return card;
+//	}
 	public static void main(String[] args) {
 	}
 }
