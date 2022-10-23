@@ -53,24 +53,22 @@ public class Game
 	
 		option = scnr.nextLine();
 		
-		System.out.println("user input " + option);
+		System.out.println("user input " + option); 
 
 		
 		while(option != "Q") {
 			
 			System.out.println("inside while loop \n");
+			
 			try 
 			{
 				System.out.println("Enter the number of Players playing Uno");
 				playerNum = scnr.nextInt();
-				if(playerNum == 1) 
+				if(playerNum == 1 || playerNum > 10) 
 				{
-					System.out.println("Number of Players has to be 2 or more. Try again\n");
+					System.out.println("Only 2-10 players can play! Try again!\n");
 				}
-				else if (playerNum > 10) {
-					System.out.println("Too many players! Only 2-10 players can play! Try again. \n");
-			
-				}
+
 				else{ 
 					System.out.println("User entered the correct number of players \n");
 					for(int j = 1; j < playerNum + 1; j++) {
@@ -78,41 +76,25 @@ public class Game
 						playerName = scnr.next();
 						System.out.println();
 					}
+					break;
 				}
 				
 			}
 	
-//
-		catch(InputMismatchException e) 
-		{
-			System.out.println("Please enter a number!");
-			scnr.nextLine();
-			playerNum = scnr.nextInt();
-		}
-//			for(int j = 1; j < playerNum + 1; j++) {
-//				
-//				System.out.print("Enter name of player " + j + ": ");
-//				playerName = scnr.next();
-////				System.out.println();
-////			}
+
+			catch(InputMismatchException e) 
+			{
+				System.out.println("Please enter a number!");
+				scnr.nextLine();
+				playerNum = scnr.nextInt();
+			}
+
 			break;
 		}
-//		scnr.close();
 		
 
 	}
-////		
-//		for(int j = 1; i < playerNum + 1; j++) {
-//		
-//				System.out.print("Enter name of player " + i + ": ");
-//				playerName = scnr.next();
-//				System.out.println();
-//			}
-//			scnr.close();
-//		}
-//	}
-		
-//	}
+
 //	draw(7, playerDeck);
 
 	//Method playerTurn
