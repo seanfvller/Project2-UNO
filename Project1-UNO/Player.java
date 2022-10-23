@@ -13,10 +13,10 @@ public class Player
 {
 	//Fields
 	String playerName;
-	int playerNum = 0; // number of players in game min is 2
+	int playerNum = 0; 
 	int numberOfCards = 0; // total number of cards the player has
 	ArrayList<Card> playerDeck;// = new ArrayList<Card>() ; //array of cards object each player has
-	Player[] playerList = new Player[10];
+	Player[] playerList = new Player[2];
 //	
 	
 	Scanner scnr = new Scanner (System.in);
@@ -24,10 +24,10 @@ public class Player
 	
 	//Constructor
 	
-	public Player (int playerNumber)
+	public Player (int number)
 	{
 		playerName = null;
-		playerNum = playerNumber;
+		playerNum = 2;
 		numberOfCards = 0;
 		getPlayerName();
 	}
@@ -39,9 +39,11 @@ public class Player
 //	Get Player name
 	public void getPlayerName(){
 		
-		System.out.print("Enter name of player " + (playerNum +1) + ": ");
+		for(int i = 0; i < playerNum; i++ ) {
+		System.out.print("Enter name of player " + (i + 1) + ": ");
 		playerName = scnr.next();
 		System.out.println();
+		}
 	}
 //		try 
 //		{
