@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Card {
 	// Card Variables
-	int cardColor; // 0: Red, 1: Blue, 2: Yellow, 3: Green, 4: Black (Draw Four Card only)
+	int cardColor; // 0: Red, 1: Blue, 2: Yellow, 3: Green
 	int cardType; // 0-9: Number Card (0-9), 10: Skip Card, 11: Reverse Card, 12: Draw Four Card
 	
 	/*
@@ -35,12 +35,7 @@ public class Card {
 		Card newCard = new Card();
 		Random random = new Random();
 		cardType = random.nextInt(13);
-		if (cardType == 12) {
-			cardColor = 4;
-		}
-		else {
-			cardColor = random.nextInt(4);
-		}
+		cardColor = random.nextInt(4);
 		return newCard;
 	}
 	
@@ -59,9 +54,6 @@ public class Card {
 		}
 		else if (this.cardColor == 3) {
 			cardColorString = "Green";
-		}
-		else if (this.cardColor == 4) {
-			cardColorString = "Black";
 		}
 		
 		return cardColorString;

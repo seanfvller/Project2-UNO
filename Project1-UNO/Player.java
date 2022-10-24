@@ -7,29 +7,29 @@
  *
  */
 import java.util.*;
-import java.util.InputMismatchException;
 
 public class Player 
 {
 	//Fields
 	String playerName;
-	int playerNum = 0; 
+	int playerNumber; 
 	int numberOfCards = 0; // total number of cards the player has
-	ArrayList<Card> playerDeck;// = new ArrayList<Card>() ; //array of cards object each player has
-	Player[] playerList = new Player[2];
-//	
+	Player nextPlayer;
+	Player prevPlayer;
+	ArrayList<Card> playerDeck;// = new ArrayList<Card>() ; //array of cards object each player hass
 	
 	Scanner scnr = new Scanner (System.in);
 	
 	
 	//Constructor
 	
-	public Player (int number)
+	public Player(int playerNum)
 	{
-		playerName = null;
-		playerNum = 2;
+		playerName = "";
+		playerNumber = playerNum;
 		numberOfCards = 0;
-		getPlayerName();
+		playerDeck = new ArrayList<Card>();
+		setPlayerName();
 	}
 	
 //	public void addPlayers(Scanner sc) {
@@ -37,14 +37,11 @@ public class Player
 //	}
 	
 //	Get Player name
-	public void getPlayerName(){
-		
-		for(int i = 0; i < playerNum; i++ ) {
-		System.out.print("Enter name of player " + (i + 1) + ": ");
+	public void setPlayerName() {
+		System.out.print("Enter name of player " + (playerNumber + 1) + ": ");
 		playerName = scnr.next();
 		System.out.println();
 		}
-	}
 //		try 
 //		{
 //			System.out.println("Enter the number of Players playing Uno");
@@ -71,18 +68,15 @@ public class Player
 //	}
 
 	//Add a card to players deck
-	public void drawCard(Card card) { 
-		
-		//if user inputs Draw, add one card to array list
-		if(scnr.nextLine() == "Draw")
-		{
-			numberOfCards++;
-			//implement create card method
-			//TODO:
-			playerDeck.add(card);		
-		}
-		
-	}
+//	public void drawCard(Card card) { 
+//
+//			numberOfCards++;
+//			//implement create card method
+//			//TODO:
+//			
+//			playerDeck.add(card);		
+//		
+//	}
 	
 	//remove a card from players deck
 	public void removeCard(int index) {
@@ -92,10 +86,10 @@ public class Player
 	
 //	//displays the players hand to player at every turn
 	public void displayPlayerDeck() {
-		System.out.println(playerName+ "'s cards");
+		System.out.println(playerName + "'s cards");
 		for (int i = 0; i < playerDeck.size(); i++) 
 		{
-	        System.out.print(playerDeck.get(i) + " ");
+	        System.out.println(i + ": " + playerDeck.get(i).cardColorToString() + " " + playerDeck.get(i).cardTypeToString());
 		}
 
 	}

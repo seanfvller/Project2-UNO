@@ -16,24 +16,22 @@ public class Game
 	//set number of card to players hand
 	//get information about players and store it
 	//set Card color
-	//StartGame(get player inforamation, set number of card player has, direction of player)
+	//StartGame(get player information, set number of card player has, direction of player)
 	
 	//Fields
-	final int startCard = 7;
+	static int numberOfPlayers;
+	//static int numOfCardPerPlayer = 7;
 	static int playerNum = 0;
 	static String playerName;
-	
-	Card deck;
-
-	static String option;
+	static Card topCard; // displays top card on discard pile
+	static int choice; //index of options (i.e. 1 - red 5)
+	static int gameDirection = 0; //variable to keep track of game direction
+	static int option;
+	static Player newPlayerA, newPlayerB, newPlayerC;
 	
 	ArrayList<ArrayList<Card>> playerDeck; //every players deck is an array list of uno cards 
 	ArrayList<Card> discardPile;
 
-	Card topCard; // displays top card on discard pile
-	int choice; //index of options (i.e. 1 - red 5)
-	boolean gameDirection; //variable to keep track of game direction
-	
 	static Scanner scnr = new Scanner (System.in);
 	
 	/**
@@ -47,97 +45,217 @@ public class Game
 
 	//constructor
 	public Game() {
-		discardPile = new ArrayList<Card>();
-		
-		gameDirection = false;
-		playerDeck = new ArrayList<ArrayList<Card>>();
+//		gameDirection = true;
 	}
 	
 	//inialized enter the number of players
 	//set the name of each player to a number 
 	public static void gameStart() {
+		
+		System.out.println("Enter '1' to start the Uno Game or enter '2' to Quit");
 	
-		
-		System.out.println("Enter 'S' to start the Uno Game or enter 'Q' to Quit");
-	
-		option = scnr.nextLine();
-		
-		System.out.println("user input " + option);  //debug
-		
-		while (option != "Q" ) {
+		option = scnr.nextInt();
+
+		try {
+			if(option == 1){
+				System.out.println("Please enter the amount of players:");
 			
-			System.out.println("inside while loop \n"); //debug
-			
-			Player player = new Player(0);
-			player.getPlayerName();
-			
-			break;
+				numberOfPlayers = scnr.nextInt();
+				
+					if (numberOfPlayers < 2 || numberOfPlayers > 8) {
+						System.out.println("Error: Cannot play UNO with less than two players or more than eight players. Please try again.");
+					}
+					
+					else if(numberOfPlayers >= 2 || numberOfPlayers <= 8){
+						createPlayerList();
+					}
+						
+				}
+					
+			else if(option == 2){
+				quitGame();
+			}
 		}
-
-//		while(option != "Q") {
-//			
-//			System.out.println("inside while loop \n"); //debug
-//			
-//			try 
-//			{
-//				System.out.println("Enter the number of Players playing Uno");
-//				playerNum = scnr.nextInt();
-//				if(playerNum == 1 || playerNum > 10) 
-//				{
-//					System.out.println("Only 2-10 players can play! Try again!\n");
-//				}
-//
-//				else{ 
-//					System.out.println("User entered the correct number of players \n");
-//					for(int j = 1; j < playerNum + 1; j++) {
-//						System.out.print("Enter name of player " + j + ": ");
-//						playerName = scnr.next();
-//						System.out.println();
-//					}
-//					break;
-//				}
-//				
-//			}
-//
-//			catch(InputMismatchException e) 
-//			{
-//				System.out.println("Please enter a number!");
-//				scnr.nextLine();
-//				playerNum = scnr.nextInt();
-//			}
-//
-//		
-//		}
+		catch(InputMismatchException e) 
+			{
+				System.out.println("Please enter a number!");
+				scnr.nextLine();
+				numberOfPlayers = scnr.nextInt();
+			}
 		
+	}
 
+	
+	public static void playerTurn(Player player,int choice) {
+		displayTopCard();
+		System.out.println("It is " + player.playerName + "'s turn. Please select from the following options:");
+		System.out.println("1: Select a card to play from your deck.");
+		System.out.println("2: End your turn. (Automatically draws one card to your deck.)");
+		System.out.println("3: UNO!");
+		
+		choice = scnr.nextInt();
+		
+		if(choice == 1) {
+			int cardChoice;
+			player.displayPlayerDeck();
+			System.out.println("Select a card by inputting its corresponding integer value.");
+			cardChoice = scnr.nextInt();
+			
+				if(checkCardValidity(player.playerDeck.get(cardChoice)) == true) {
+				topCard = player.playerDeck.get(cardChoice);
+				player.playerDeck.remove(cardChoice);
+				
+					if(topCard.cardType == 10) {
+						System.out.println("Skipped " + player.nextPlayer.playerName + "'s turn.");
+						if (gameDirection == 0) {
+							player = player.nextPlayer;
+							playerTurn(player.nextPlayer,0);
+						}
+						else if (gameDirection == 1) {
+							player = player.prevPlayer;
+							playerTurn(player.prevPlayer,0);
+						}
+				
+					}
+					
+					else if (topCard.cardType == 11) {
+						System.out.println("The flow of player turns has been reversed.");
+						if (gameDirection == 0) {
+							gameDirection = 1;
+							
+						}
+						else if (gameDirection == 1) {
+							gameDirection = 0;
+							
+						}
+						if (gameDirection == 0) {
+							playerTurn(player.nextPlayer,0);
+						}
+						else if (gameDirection == 1) {
+							playerTurn(player.prevPlayer,0);
+						}
+						
+					}
+					
+					else if (topCard.cardType == 12) {
+						if (gameDirection == 1) {
+							cardDrawFour(player.nextPlayer, 4);
+							playerTurn(player.nextPlayer,0);
+							}
+						else if (gameDirection == 0) {
+							cardDrawFour(player.prevPlayer, 4);
+							playerTurn(player.prevPlayer,0);
+						}
+					}
+						
+						else {
+							if (gameDirection == 0) {
+							playerTurn(player.nextPlayer,0);
+							}
+							else if (gameDirection == 1) {
+							playerTurn(player.prevPlayer,0);
+							}
+						}
+				}	
+	
+				else if (checkCardValidity(player.playerDeck.get(cardChoice)) == false) {
+				System.out.println("You cannot play this card. Please select a different card.");
+				playerTurn(player,0);
+				
+			}
+		}
+		
+		else if (choice == 2) {
+			drawCard(1, player.playerDeck);
+			
+				if (gameDirection == 0) {
+					playerTurn(player.nextPlayer,0);
+				}
+				
+				else if (gameDirection == 1) {
+					playerTurn(player.prevPlayer,0);
+				}
+		}
+		else if (choice == 3) {
+			if (player.playerDeck.size() == 0){
+			System.out.println(player.playerName + " has won the game!");
+			quitGame();
+			}
+			else if (player.playerDeck.size() > 0) {
+				System.out.println("You do not meet the conditions to call 'UNO!'");
+				playerTurn(player,0);
+			}
+			}
+		}	
+	public static void displayTopCard() {
+		System.out.println("The Top Card is a " + topCard.cardColorToString() + " " + topCard.cardTypeToString() + ".");
+	}
+	
+	public static boolean checkCardValidity(Card card) {
+		if (card.cardType == 12 || card.cardColor == 4 || card.cardType == topCard.cardType || card.cardColor == topCard.cardColor) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public static void createPlayerList() {
+		newPlayerA = new Player(0);
+		setCardForPlayer(newPlayerA);
+		newPlayerB = new Player(1);
+		setCardForPlayer(newPlayerB);
+		newPlayerA.nextPlayer = newPlayerB;
+		newPlayerB.prevPlayer = newPlayerA;
+		
+		for(int i = 7; i < numberOfPlayers; i++) {
+			newPlayerC = new Player(i);
+			setCardForPlayer(newPlayerC);
+			newPlayerB.nextPlayer = newPlayerC;
+			newPlayerC.prevPlayer = newPlayerB;
+			newPlayerB = newPlayerC;
+		}
+		
+		newPlayerA.prevPlayer = newPlayerB;
+		newPlayerB.nextPlayer = newPlayerA;
 	}
 	
 	//create new card to for starting card
-	public Card getTopCard() {
-		return new Card();
+	public static Card createTopCard() {
+		topCard = new Card();
+		topCard.createCard();
+		return topCard;
 	}
 
 	//gives 7 cards to each player in the beginning
-	public static void setCardForPlayer(Player p) {
-		
-	}
-	
+	public static void setCardForPlayer(Player player) {
 
-	//Method playerTurn 
-	public void getCurrentPlayer() {
-		
+		for (int i = 0; i < 2; i++){
+			Card newCard = new Card();
+			newCard.createCard();
+			player.playerDeck.add(newCard);
+	
+			
+		}
 	}
 	
-	public void getPreviousPlayer(int i) {
-		
-	}
-//	
-//	public String[] getPlayers() {
-//		return players;
-//	}
+	public static void drawCard(int cards, ArrayList<Card> playerDeck) {
+		for (int i = 0; i < cards; i++){
+		Card newCard = new Card();
+		newCard.createCard();
+		playerDeck.add(newCard);
+		}
 	
-	public void quitGame() {
-		System.out.print("You have now exited the Uno Game. Goodbye!");
+	}
+	
+	public static void cardDrawFour(Player player, int card){
+		card = 4; 
+		System.out.println(player.playerName + " draws " + card);
+		drawCard(4, player.playerDeck);
+	}
+
+	public static void quitGame() {
+		System.out.print("Thank you for playing Uno. Goodbye!");
 		System.exit(0);
 	}
 	//Game is over when player hand is empty
@@ -150,9 +268,12 @@ public class Game
 	{
 		
 		System.out.println("Hello World");  //for debugging
+		System.out.println("Welcome to Uno!");
 		gameStart();
+		createTopCard();
+		playerTurn(newPlayerA,0);
 	
-		
+	
 	}
 
 }
