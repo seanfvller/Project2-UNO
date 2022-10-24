@@ -3,7 +3,7 @@
  */
 
 /**
- * @author Dad
+ * @author Sean Fuller, Tristen Tran
  *
  */
 import java.util.*;
@@ -86,14 +86,15 @@ public class Player
 	
 //	//displays the players hand to player at every turn
 	public void displayPlayerDeck() {
+		
 		System.out.println(playerName + "'s cards");
 		for (int i = 0; i < playerDeck.size(); i++) 
 		{
 	        System.out.println(i + ": " + playerDeck.get(i).cardColorToString() + " " + playerDeck.get(i).cardTypeToString());
-		}
-
+			}
+	
+	
 	}
-
 }
 
 
